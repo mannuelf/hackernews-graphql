@@ -1,0 +1,33 @@
+{
+  "name": "hackernews-node",
+  "version": "0.0.1",
+  "description": "",
+  "main": "scr/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "prisma:studio": "npx prisma studio",
+    "prisma:migrate": "npx prisma migrate dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "mannuelf <mannuel.ferreira@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "2.19.0",
+    "apollo-server": "^2.21.1",
+    "bcryptjs": "^2.4.3",
+    "graphql": "^15.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1",
+    "type-graphql": "^1.1.1",
+    "typescript": "^4.2.2"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.19.0",
+    "@types/express": "^4.17.11",
+    "@types/graphql": "^14.5.0",
+    "@types/node": "^14.14.35",
+    "prisma": "2.19.0"
+  }
+}
