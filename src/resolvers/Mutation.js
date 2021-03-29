@@ -47,6 +47,8 @@ async function login(parent, args, context, info) {
     throw new Error("invalid please try again");
   }
 
+  const token = jwt.sign({ userId: user.id }, APP_SECRET);
+
   return {
     token,
     user,
