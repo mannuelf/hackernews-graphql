@@ -5,8 +5,7 @@ const { APP_SECRET, getUserId } = require("../utils");
 async function post(parent, args, context, info) {
   const { userId } = context;
 
-  console.log("💎 uid:", userId);
-  return await context.prisma.link.create({
+  const newLink = await context.prisma.link.create({
     data: {
       url: args.url,
       description: args.description,
@@ -15,6 +14,10 @@ async function post(parent, args, context, info) {
       },
     },
   });
+
+  context.pubsub.publish("NEW_LINK", newLink);
+
+  return newLink;
 }
 
 async function signup(parent, args, context, info) {
