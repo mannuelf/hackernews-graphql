@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
-const APP_SECRET = require("GraphQL-is-aw3some");
+const APP_SECRET = "GraphQL-is-aw3some";
 
 function getTokenPayload(token) {
   return jwt.verify(token, APP_SECRET);
 }
 
 function getUserId(req, authToken) {
-  if (reg) {
+  if (req) {
     const authHeader = req.headers.authorization;
     if (authHeader) {
       const token = authHeader.replace("Bearer ", "");
@@ -17,10 +17,11 @@ function getUserId(req, authToken) {
       return userId;
     }
   } else if (authToken) {
-    const { userId } = getTokenPayload(token);
+    const { userId } = getTokenPayload(authToken);
     return userId;
   }
-  throw new Error("Not Authenticated");
+
+  throw new Error("Not authenticated");
 }
 
 module.exports = {

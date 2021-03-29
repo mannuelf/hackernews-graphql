@@ -1,18 +1,17 @@
-const { PrismaClient } = require("@prisma/client");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const prisma = new PrismaClient();
 const { APP_SECRET, getUserId } = require("../utils");
 
 async function post(parent, args, context, info) {
   const { userId } = context;
 
+  console.log("💎 uid:", userId);
   return await context.prisma.link.create({
     data: {
       url: args.url,
       description: args.description,
       postedBy: {
-        connect: { id: userId },
+        connect: userId ? { id: userId } : undefined,
       },
     },
   });
@@ -47,8 +46,6 @@ async function login(parent, args, context, info) {
   if (!valid) {
     throw new Error("invalid please try again");
   }
-
-  const valid = await bcrypt.compare(args.password, user.password);
 
   return {
     token,
