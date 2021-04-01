@@ -11,6 +11,7 @@ const Link = require("./resolvers/Link");
 const Subscription = require("./resolvers/Subscription");
 
 const pubsub = new PubSub();
+// https://www.apollographql.com/docs/apollo-server/data/subscriptions/
 
 const resolvers = {
   Query,
