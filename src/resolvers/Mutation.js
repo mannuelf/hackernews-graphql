@@ -58,8 +58,39 @@ async function login(parent, args, context, info) {
   };
 }
 
+async function vote(parent, arg, context, info) {
+  // validate the incoming JWT with the getUserId function, if valid return ID or throw exception
+  const userId = getUserId(context);
+
+  // protect against double voting, accidental twice clicker, check if vote already exist or not. fetch a vote with same linkId and userId. if vote exists, it will be stored in the vote var. resulting in the boolean True... from call to Boolean(vote)-threing an erro telling user already voted.
+  const vote = await context.prisma.vote.findUnique({
+    where: {
+      linkId_userId: {
+        linkId: Number(args.linkId),
+        userId: userId,
+      },
+    },
+  });
+
+  if (Boolean(vote)) {
+    throw new Error(`Already voted for link: ${args.linkId}`);
+  }
+
+  const newVote = context.prisma.vote.create({
+    data: {
+      user: { connect: { id: userId } },
+      link: { connect: { id: Number(args.linkId) } },
+    },
+  });
+
+  context.pubsub.publish("NEW_VOTE", newVote);
+
+  return newVote;
+}
+
 module.exports = {
   signup,
   login,
   post,
+  vote,
 };
