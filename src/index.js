@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+// apollo server fully-featured graphql server based on express.js
 const { ApolloServer, PubSub } = require("apollo-server");
 const { getUserId } = require("./utils");
 const prisma = new PrismaClient();
@@ -23,7 +24,10 @@ const resolvers = {
   Vote,
 };
 
-// 3
+// 3.1 typeDefs defines GraphQl schema, pass it all your types
+// 3.2 resolvers object is the actual implemention of GraphQL schema
+// 3.3 schema and resolvers are bundles and passed to ApolloServer, wich is imported from apollo-server
+// 3.4 prisma, pubsub and userId passed into the context wich is passed int GraphQl server.
 const server = new ApolloServer({
   typeDefs: fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"),
   resolvers,

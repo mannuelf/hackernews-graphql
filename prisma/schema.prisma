@@ -1,6 +1,11 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// 1. Mannuel adjust yout prisma data model
+// 2. migrate the database
+// 3. re-generat prisma client
+// 4. use prisma client in application
+
 datasource db {
   provider = "sqlite"
   url      = "file:./dev.db"
